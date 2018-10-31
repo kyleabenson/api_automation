@@ -1,0 +1,32 @@
+---
+- name: Deploy systems with an example provisioning callback
+  hosts: localhost
+  vars_files:
+    - sample_vars.yml
+  tasks:
+    - ec2_instance_facts:
+        region: "{{ region }}"
+        filters:
+          "tag:Name": "{{ lab_name }}"
+      register: ec2_output
+
+    - name: Remove system from AWS
+      ec2:
+        key_name: "{{ user_key }}"
+        instance_id: "{{ item.instance_id }}"
+        instance_type: t2.micro
+        image: ami-26ebbc5c
+        wait: yes
+        region: us-east-1
+        instance_tags:
+          Name: "{{ lab_name }}"
+          TowerManaged: true
+        count_tag: "{{ lab_name }}"
+        vpc_subnet_id: "{{ subnet }}"
+        state: absent
+        volumes:
+          - device_name: /dev/sda1
+            volume_type: gp2
+            volume_size: 10
+            delete_on_termination: true
+      loop: "{{ ec2_output.instances }} " 

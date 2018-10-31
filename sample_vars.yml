@@ -1,0 +1,5 @@
+user_key: kbenson_env
+lab_name: kbenson_env
+subnet: subnet-56d31069
+security_group: default
+region: us-east-1
