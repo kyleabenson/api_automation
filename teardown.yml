@@ -1,9 +1,4 @@
 ---
-- name: Deploy systems with an example provisioning callback
-  hosts: localhost
-  vars_files:
-    - sample_vars.yml
-  tasks:
     - ec2_instance_facts:
         region: "{{ region }}"
         filters:
@@ -17,7 +12,7 @@
         instance_type: t2.micro
         image: ami-26ebbc5c
         wait: yes
-        region: us-east-1
+        region: "{{ region }}"
         instance_tags:
           Name: "{{ lab_name }}"
           TowerManaged: true

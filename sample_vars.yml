@@ -1,5 +1,6 @@
 user_key: kbenson_env
 lab_name: kbenson_env
-subnet: subnet-56d31069
 security_group: default
 region: us-east-1
+vpc_name: kbenson_dev_vpc
+status: up
